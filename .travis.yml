@@ -34,6 +34,7 @@ jobs:
             - echo $REGISTRY_KEY > lekeyfile.json
             - gcloud auth activate-service-account $GCLOUD_EMAIL --key-file lekeyfile.json
             - gcloud container clusters get-credentials make-it-binger-cluster-clone-1 --zone europe-west1-c --project xomnia-search-engine-training
-            - sh deployment/deploy.sh
+            - cd deployment
+            - ./deploy.sh
             - kubectl delete pods -l app=flask
             - kubectl delete pods -l app=scraper
