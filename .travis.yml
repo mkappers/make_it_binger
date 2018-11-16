@@ -29,7 +29,7 @@ jobs:
             - source /home/travis/google-cloud-sdk/path.bash.inc
             - gcloud version
             - gcloud components update kubectl || true
-            - lekeyfile.json < $(echo $REGISTRY_KEY)
+            - echo $REGISTRY_KEY > lekeyfile.json
             - gcloud auth activate-service-account $GCLOUD_EMAIL --key-file lekeyfile.json
             - gcloud container clusters get-credentials make-it-binger-cluster --zone europe-west1-c - project xomnia-search-engine-training
             - kubectl apply -f deployment/flask.yaml
