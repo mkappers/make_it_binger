@@ -25,7 +25,7 @@ jobs:
             - docker push eu.gcr.io/xomnia-search-engine-training/flask:latest
         - stage: k8s
           script:
-            - curl https://sdk.cloud.google.com | bash > /dev/null;
+            - curl https://sdk.cloud.google.com | bash;
             - gcloud version
 #            - install gcloud
 #            - authenticate gcloud
