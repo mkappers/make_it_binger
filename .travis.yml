@@ -9,14 +9,17 @@ services:
 #install:
 #    pip install -r flask/requirements.txt
 
+
+
 jobs:
     include:
-        - stage: linting
-          install:
-            - pip install flake8
-          script:
-            - flake8 flask
+#        - stage: linting
+#          install:
+#            - pip install flake8
+#          script:
+#            - flake8 flask
         - stage: docker
           script:
+            - docker login -u _json_key -p "$(echo $REGISTRY_KEY)" https://gcr.io
             - docker build -t eu.gcr.io/xomnia-search-engine-training/flask:latest ./flask
-            
+            - docker push eu.gcr.io/xomnia-search-engine-training/flask:latest
