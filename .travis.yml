@@ -2,6 +2,8 @@ language: python
 python:
     - "3.6"
 
+services:
+    - docker
 
 # Command to install dependencies
 #install:
@@ -14,3 +16,7 @@ jobs:
             - pip install flake8
           script:
             - flake8 flask
+        - stage: docker
+          script:
+            - docker build -t eu.gcr.io/xomnia-search-engine-training/flask:latest ./flask
+            
