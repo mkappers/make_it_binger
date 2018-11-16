@@ -23,3 +23,13 @@ jobs:
             - docker login -u _json_key -p "$(echo $REGISTRY_KEY)" https://eu.gcr.io
             - docker build -t eu.gcr.io/xomnia-search-engine-training/flask:latest ./flask
             - docker push eu.gcr.io/xomnia-search-engine-training/flask:latest
+        - stage: k8s
+          script:
+            - curl https://sdk.cloud.google.com | bash > /dev/null;
+            - gcloud version
+#            - install gcloud
+#            - authenticate gcloud
+#            - update gcloud kubectl component
+#            - configure kubectl
+#            - kubectl apply -f deployment/flask.yaml
+#            - kubectl delete pods -l app=flask
