@@ -20,6 +20,6 @@ jobs:
 #            - flake8 flask
         - stage: docker
           script:
-            - docker login -u _json_key -p "$(echo $REGISTRY_KEY)" https://gcr.io
+            - docker login -u _json_key -p "$(echo $REGISTRY_KEY)" https://eu.gcr.io
             - docker build -t eu.gcr.io/xomnia-search-engine-training/flask:latest ./flask
             - docker push eu.gcr.io/xomnia-search-engine-training/flask:latest
