@@ -2,6 +2,15 @@ language: python
 python:
     - "3.6"
 
+
 # Command to install dependencies
-install:
-    pip install -r flask/requirements.txt
+#install:
+#    pip install -r flask/requirements.txt
+
+jobs:
+    include:
+        - stage: linting
+          install:
+            - pip install flake8
+          script:
+            - flake8
