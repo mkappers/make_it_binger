@@ -28,9 +28,9 @@ jobs:
             - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
             - source /home/travis/google-cloud-sdk/path.bash.inc
             - gcloud version
-#            - install gcloud
-#            - authenticate gcloud
-#            - update gcloud kubectl component
-#            - configure kubectl
-#            - kubectl apply -f deployment/flask.yaml
-#            - kubectl delete pods -l app=flask
+            - gcloud components update kubectl || true
+            - lekeyfile.json < $(echo $REGISTRY_KEY)
+            - gcloud auth activate-service-account $GCLOUD_EMAIL --key-file lekeyfile.json
+            - gcloud container clusters get-credentials make-it-binger-cluster --zone europe-west1-c - project xomnia-search-engine-training
+            - kubectl apply -f deployment/flask.yaml
+            - kubectl delete pods -l app=flask
