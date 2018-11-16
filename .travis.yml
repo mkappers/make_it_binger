@@ -23,6 +23,8 @@ jobs:
             - docker login -u _json_key -p "$(echo $REGISTRY_KEY)" https://eu.gcr.io
             - docker build -t eu.gcr.io/xomnia-search-engine-training/flask:latest ./flask
             - docker push eu.gcr.io/xomnia-search-engine-training/flask:latest
+            - docker build -t eu.gcr.io/xomnia-search-engine-training/scraper:latest ./scraper
+            - docker push eu.gcr.io/xomnia-search-engine-training/scraper:latest
         - stage: k8s
           script:
             - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
@@ -32,5 +34,6 @@ jobs:
             - echo $REGISTRY_KEY > lekeyfile.json
             - gcloud auth activate-service-account $GCLOUD_EMAIL --key-file lekeyfile.json
             - gcloud container clusters get-credentials make-it-binger-cluster-clone-1 --zone europe-west1-c --project xomnia-search-engine-training
-            - kubectl apply -f deployment/flask.yaml
+            - sh deployment/deploy.sh
             - kubectl delete pods -l app=flask
+            - kubectl delete pods -l app=scraper
